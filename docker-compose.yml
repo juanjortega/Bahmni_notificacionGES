@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  cielconcepttogesapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile-cieltoges
+    ports:
+      - "9091:9091"
+    restart: "always"
+    networks:
+      bahmni-standard_default:
+
+  apidaemon:
+    build:
+      context: ./
+      dockerfile: Dockerfile-daemon
+    environment:
+      MYSQL_PORT: 3306     
+      MYSQL_DATABASE: notificacion_ges 
+      MYSQL_USER: notificacion
+      MYSQL_PASSWORD: Admin.123
+      FLASK_PASSWORD: Admin.123 # Cambia esto por la contraseña que desees para acceder a la tabla
+      MYSQL_HOST: openmrsdb 
+    restart: "always"
+    networks:
+      bahmni-standard_default:
+
+networks:
+  bahmni-standard_default:

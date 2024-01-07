@@ -45,6 +45,8 @@ openmrscursor = openmrsdb.cursor()
 try:
     # Consulta para obtener directamente el concept_id basado en el UUID
     openmrscursor.execute(f"SELECT concept_id FROM {openmrsdb_name}.concept WHERE uuid = '{concept_uuid}';")
+    print("*** concept uuid ***")
+    print(concept_uuid)
 
     # Obtener el resultado de la consulta
     concept_id_result = openmrscursor.fetchone()

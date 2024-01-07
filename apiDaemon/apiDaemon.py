@@ -153,7 +153,7 @@ while True:
             # ges = cielConceptToGesApi.get_who_concept_details(icd10)
 
             # Si la respuesta arroja algun ges
-            if diag['ges_concept_id']!="":
+            if diag.get('ges_concept_id') is not None:
 
                 print("es ges")
                 # Consulto los detalles del ges

@@ -3,6 +3,17 @@ import requests
 
 app = Flask(__name__)
 
+def get_concept_details_q(query):
+    base_url = "https://api.centromedicofundacion.cl"
+    concept_url = f"{base_url}/orgs/CIEL/sources/CIEL/concepts/?q={query}&cascadeLevels=1&method=sourceToConcepts&view=hierarchy&includeRetired=false"
+    response = requests.get(concept_url)
+    if response.status_code == 200:
+        concept_data = response.json()
+        #print(concept_data)
+        return concept_data
+    else:
+        raise Exception(f"No se encontró un concepto con consulta {query}")
+
 def get_concept_details(concept_id):
     base_url = "https://api.centromedicofundacion.cl"
     concept_url = f"{base_url}/orgs/CIEL/sources/CIEL/concepts/{concept_id}/$cascade/?cascadeLevels=1&method=sourceToConcepts&view=hierarchy&includeRetired=false"
@@ -10,6 +21,7 @@ def get_concept_details(concept_id):
     
     if response.status_code == 200:
         concept_data = response.json()
+        #print(concept_data)
         display_name = concept_data['entry']['display_name']
         
         mappings = []
@@ -117,6 +129,19 @@ def concept_details():
             return jsonify({'error': str(e)})
     else:
         return jsonify({'error': 'No se proporcionó el ID del concepto.'})
+
+@app.route('/api/concept-query', methods=['GET'])
+def concept_details_q():
+    query = request.args.get('q')
+    
+    if query:
+        try:
+            concept_details = get_concept_details_q(query)
+            return jsonify(concept_details)
+        except Exception as e:
+            return jsonify({'error': str(e)})
+    else:
+        return jsonify({'error': 'No se proporcionó un dato valido.'})
 
 
 if __name__ == '__main__':

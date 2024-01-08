@@ -18,7 +18,7 @@ create table notificacion_ges
     region_paciente             varchar(500)  null,
     telefono_fijo_paciente      varchar(50)   null,
     celular_paciente            varchar(50)   null,
-    email_paciente              varchar(500)  not null,
+    email_paciente              varchar(500)  null,
     cie10                       varchar(10)   null,
     diagnostico_ges             varchar(500)  null,
     tipo                        varchar(50)   null,
@@ -35,9 +35,5 @@ create table notificacion_ges
     fechahora_actualizacion     timestamp     null,
     usuario_registro            varchar(12)   not null,
     usuario_actualizacion       varchar(12)   null,
-    estado                      char          null,
-    constraint notificacion_ges_rut_notificador_pk
-        unique (rut_notificador),
-    constraint notificacion_ges_rut_paciente_pk
-        unique (rut_paciente)
+    estado                      char          null
 );

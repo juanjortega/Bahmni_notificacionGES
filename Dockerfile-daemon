@@ -13,5 +13,8 @@ RUN pip install mysql-connector-python python-dotenv
 # Instala las dependencias
 RUN pip install -r requirements.txt
 
+# Instalar netcat
+RUN apt-get update && apt-get install -y netcat
+
 # Ejecuta los scripts cuando el contenedor se inicia
 CMD ["python", "apiDaemon.py"] 

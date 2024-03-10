@@ -17,11 +17,14 @@ services:
       dockerfile: Dockerfile-daemon
     environment:
       MYSQL_PORT: 3306     
-      MYSQL_DATABASE: notificacion_ges 
-      MYSQL_USER: notificacion
-      MYSQL_PASSWORD: Admin.123
-      FLASK_PASSWORD: Admin.123 # Cambia esto por la contraseña que desees para acceder a la tabla
-      MYSQL_HOST: openmrsdb 
+      OPENMMRS_MYSQL_HOST: ${OPENMMRS_MYSQL_HOST:?}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      MYSQL_OPENMRS_DATABASE: ${MYSQL_OPENMRS_DATABASE:?} 
+      NOTIFICACIONES_DATABASE: ${NOTIFICACIONES_DATABASE:?}
+      MYSQL_USER_NOTIFICACIONES: ${MYSQL_USER_NOTIFICACIONES:?}
+      MYSQL_PASSWORD_NOTIFICACIONES: ${MYSQL_PASSWORD_NOTIFICACIONES:?}
+      INTERVALO_SEG: ${INTERVALO_SEG:?}
+      CONCEPT_UUID_VAR: ${CONCEPT_UUID_VAR:?}
     restart: "always"
     networks:
       bahmni-standard_default:

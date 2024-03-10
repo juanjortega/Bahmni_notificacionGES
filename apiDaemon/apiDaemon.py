@@ -22,14 +22,14 @@ load_dotenv()
 
 
 # Conexión a la base de datos MySQL
-openmrsdb_name = os.getenv('openmrsbd_var')
-notificacionesdb_name = os.getenv("notificacionesbd_var")
+openmrsdb_name = os.getenv('MYSQL_OPENMRS_DATABASE')
+notificacionesdb_name = os.getenv("NOTIFICACIONES_DATABASE")
 
 # Establecer la conexión con la base de datos MySQL utilizando los valores de las variables de entorno
 openmrsdb = mysql.connector.connect(
-    host=os.getenv("openmrshost_var"),  # Obtener la dirección IP del host desde una variable de entorno
-    user=os.getenv("user_var"),  # Obtener el nombre de usuario desde una variable de entorno
-    password=os.getenv("password_var"),  # Obtener la contraseña desde una variable de entorno
+    host=os.getenv("OPENMMRS_MYSQL_HOST"),  # Obtener la dirección IP del host desde una variable de entorno
+    user=os.getenv("MYSQL_USER_NOTIFICACIONES"),  # Obtener el nombre de usuario desde una variable de entorno
+    password=os.getenv("MYSQL_PASSWORD_NOTIFICACIONES"),  # Obtener la contraseña desde una variable de entorno
     database=openmrsdb_name   # Obtener el nombre de la base de datos de openmrs desde una variable de entorno
 )
 

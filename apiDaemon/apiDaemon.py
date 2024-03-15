@@ -20,24 +20,32 @@ import uuid # nuevo
 
 load_dotenv()
 
-
-# Conexión a la base de datos MySQL
+# Cargar nombres de las bases de datos desde variables de entorno
 openmrsdb_name = os.getenv('MYSQL_OPENMRS_DATABASE')
 notificacionesdb_name = os.getenv("NOTIFICACIONES_DATABASE")
 
-# Establecer la conexión con la base de datos MySQL utilizando los valores de las variables de entorno
+# Establecer la conexión con la base de datos de OpenMRS
 openmrsdb = mysql.connector.connect(
-    host=os.getenv("OPENMMRS_MYSQL_HOST"),  # Obtener la dirección IP del host desde una variable de entorno
-    user=os.getenv("MYSQL_USER_NOTIFICACIONES"),  # Obtener el nombre de usuario desde una variable de entorno
-    password=os.getenv("MYSQL_PASSWORD_NOTIFICACIONES"),  # Obtener la contraseña desde una variable de entorno
-    database=openmrsdb_name   # Obtener el nombre de la base de datos de openmrs desde una variable de entorno
+    host=os.getenv("OPENMMRS_MYSQL_HOST"),  # Obtener la dirección IP del host de OpenMRS desde una variable de entorno
+    user=os.getenv("MYSQL_OPENMRS_USER"),  # Obtener el nombre de usuario para OpenMRS desde una variable de entorno
+    password=os.getenv("MYSQL_OPENMRS_PASSWORD"),  # Obtener la contraseña para OpenMRS desde una variable de entorno
+    database=openmrsdb_name  # Obtener el nombre de la base de datos de OpenMRS desde una variable de entorno
 )
+
+# Establecer la conexión con la base de datos de Notificaciones
+notificacionesdb = mysql.connector.connect(
+    host=os.getenv("NOTIFICACIONES_HOST"),  # Obtener la dirección IP del host de Notificaciones desde una variable de entorno
+    user=os.getenv("MYSQL_USER_NOTIFICACIONES"),  # Obtener el nombre de usuario para Notificaciones desde una variable de entorno
+    password=os.getenv("MYSQL_PASSWORD_NOTIFICACIONES"),  # Obtener la contraseña para Notificaciones desde una variable de entorno
+    database=notificacionesdb_name  # Obtener el nombre de la base de datos de Notificaciones desde una variable de entorno
+)
+
 
 obs_id_inicio = 0
 condition_id_inicio = 0
 
 # UUID del concepto que deseas buscar
-concept_uuid = os.getenv("concept_uuid_var")
+concept_uuid = os.getenv("CONCEPT_UUID_VAR")
 
 # Crear un cursor para ejecutar la consulta
 openmrscursor = openmrsdb.cursor()
@@ -193,4 +201,4 @@ while True:
     
 
     # Pausar la ejecución durante 5 segundos
-    time.sleep(int(os.getenv("intervalo_seg")))
+    time.sleep(int(os.getenv("INTERVALO_SEG")))

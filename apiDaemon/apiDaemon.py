@@ -172,19 +172,23 @@ while True:
                     # Consulto los detalles del ges
                     # ges_name = cielConceptToGesApi.get_ges_concept_details(ges[0])
                 
-                    openmrscursor2 = openmrsdb.cursor()
+                    notificacionescursor = notificacionesdb.cursor()
+                    #openmrscursor2 = openmrsdb.cursor()
                     agregar_posible_ges_query = ("INSERT INTO "+notificacionesdb_name+".notificacion_ges (obs_id, condition_id, nombre_establecimiento, direccion_establecimiento, ciudad_establecimiento, notificador_id, nombre_notificador, rut_notificador, nombre_paciente, rut_paciente, aseguradora_paciente, direccion_paciente, comuna_paciente, region_paciente, telefono_fijo_paciente, celular_paciente, email_paciente, cie10, diagnostico_ges, tipo, fechahora_notificacion, firma_notificador, firma_paciente, tipo_notificado, nombre_representante, rut_representante, telefono_fijo_representante, celular_representante, email_representante, fechahora_registro, fechahora_actualizacion, usuario_registro, usuario_actualizacion, estado)"
                          " VALUES (%s, %s, 'Centro Medico y Dental Fundación', 'Amanda Labarca 70', 'Santiago', %s, %s, null, %s, %s, null, %s, %s, null, null, %s, %s, %s, %s, null, null, null, null, null, null, null, null, null, null, current_timestamp, null, %s, null, 'P')")
                 
                     icd10 = diag2['icd10_who_concept_id']
                     ges_name = diag2['display_name_ges']
                     # Ejecutar la sentencia SQL
-                    openmrscursor2.execute(agregar_posible_ges_query,(obs_id,condition_id,id_notificador,nombre_notificador,nombre_paciente,rut_paciente,direccion_paciente,comuna_paciente,celular_paciente,email_paciente,icd10,ges_name,usuario_registro))
+                    #openmrscursor2.execute(agregar_posible_ges_query,(obs_id,condition_id,id_notificador,nombre_notificador,nombre_paciente,rut_paciente,direccion_paciente,comuna_paciente,celular_paciente,email_paciente,icd10,ges_name,usuario_registro))
+                    notificacionescursor.execute(agregar_posible_ges_query,(obs_id,condition_id,id_notificador,nombre_notificador,nombre_paciente,rut_paciente,direccion_paciente,comuna_paciente,celular_paciente,email_paciente,icd10,ges_name,usuario_registro))
 
                 
                     # Confirmar los cambios en la base de datos
-                    openmrsdb.commit()
-                    openmrscursor2.close()
+                    #openmrsdb.commit()
+                    #openmrscursor2.close()
+                    notificacionesdb.commit()
+                    notificacionescursor.close()
 
                 else:
                     print("no era ges")

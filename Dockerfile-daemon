@@ -1,0 +1,17 @@
+# Utiliza una imagen base de Python
+FROM python:3
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia todos los archivos en la carpeta script/ al directorio de trabajo en el contenedor
+COPY apiDaemon/ /app/
+
+# Instala las dependencias
+RUN pip install mysql-connector-python python-dotenv
+
+# Instala las dependencias
+RUN pip install -r requirements.txt
+
+# Ejecuta los scripts cuando el contenedor se inicia
+CMD ["python", "apiDaemon.py"] 

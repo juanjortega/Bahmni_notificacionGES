@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  cielconcepttogesapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile-cieltoges
+    ports:
+      - "9091:9091"
+    restart: "always"
+    networks:
+      bahmni-standard_default:
+
+  apidaemon:
+    build:
+      context: ./
+      dockerfile: Dockerfile-daemon
+    environment:
+      MYSQL_PORT: 3306     
+      OPENMMRS_MYSQL_HOST: ${OPENMMRS_MYSQL_HOST:?}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      MYSQL_OPENMRS_DATABASE: ${MYSQL_OPENMRS_DATABASE:?} 
+      NOTIFICACIONES_DATABASE: ${NOTIFICACIONES_DATABASE:?}
+      MYSQL_USER_NOTIFICACIONES: ${MYSQL_USER_NOTIFICACIONES:?}
+      MYSQL_PASSWORD_NOTIFICACIONES: ${MYSQL_PASSWORD_NOTIFICACIONES:?}
+      INTERVALO_SEG: ${INTERVALO_SEG:?}
+      CONCEPT_UUID_VAR: ${CONCEPT_UUID_VAR:?}
+    restart: "always"
+    networks:
+      bahmni-standard_default:
+
+networks:
+  bahmni-standard_default:

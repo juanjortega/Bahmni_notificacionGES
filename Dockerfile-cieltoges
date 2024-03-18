@@ -1,0 +1,17 @@
+# Utiliza una imagen base de Python
+FROM python:3
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia todos los archivos en la carpeta script/ al directorio de trabajo en el contenedor
+COPY cielConceptToGesApi/ /app/
+
+# Instala las dependencias
+RUN pip install -r requirements.txt
+
+# Expone el puerto 9091 para el servicio Flask
+EXPOSE 9091
+
+# Ejecuta los scripts cuando el contenedor se inicia
+CMD ["python", "cielConceptToGesApi.py"]
